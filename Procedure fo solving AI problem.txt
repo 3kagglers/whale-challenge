@@ -1,0 +1,31 @@
+Procedure for solving AI problem
+
+1. Loading and checking the data
+- Load data
+- Detect outlier
+  for numerical feature
+- Join train and test date set
+
+2. Feature analysis
+   verify correlation among features and correlation between each feature and the output
+- Analyze numerical values
+- Analyze categorical values
+
+3. Filling missing values
+
+4. Feature engineering
+   create new features
+
+5. Changing feature representation 
+   categorical to "0 and 1"
+
+6. Modeling
+- Define model
+  neural network, decision tree, SVM
+- Train the model
+- Plot learning curve
+- Check crossvalidation
+- Tune the hyperparameters
+  gridsearch or genetic algorithm
+
+7. Prediction
