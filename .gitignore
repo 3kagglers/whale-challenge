@@ -5,6 +5,7 @@
 # Data analysis stuff
 *.jpg
 *.png
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
