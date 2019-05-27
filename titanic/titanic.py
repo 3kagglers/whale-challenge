@@ -29,7 +29,7 @@ prepr.process_training_dataset('train.csv')
 df = pd.read_csv('train.csv')
 
 # perform feature analysis
-numerical_features = ["Survived","SibSp","Parch","Age","Fare"]
+numerical_features = ["Survived", "SibSp", "Parch", "Age", "Fare"]
 feat_analysis = featureAnalysis.FeatureAnalysis()
 feat_analysis.get_correlation_numericalvalues(df, numerical_features)
 feat_analysis.analyse_categoricalvalues(df)
@@ -38,12 +38,13 @@ feat_analysis.analyse_categoricalvalues(df)
 
 prepr.process_test_dataset('test.csv')
 dataframe = pd.read_csv('gender_submission.csv')
-test_output = dataframe.iloc[:,1].values
+test_output = dataframe.iloc[:, 1].values
 
 input_value, output = prepr.get_train_datasets()
 
 # Get number of columns in training data
 n_cols = input_value.shape[1]
+
 
 def neural_network(l_rate):
     model = Sequential()
@@ -63,6 +64,7 @@ def neural_network(l_rate):
     model.compile(optimizer='adam',
                   loss='binary_crossentropy', metrics=['accuracy'])
     return model
+
 
 early_stopping_monitor = EarlyStopping(patience=5)
 # Train model
@@ -88,7 +90,7 @@ for i in range(len(test_output)):
     if pred_result[i] == test_output[i]:
         right += 1
 acc = right/len(test_output)
-print('Calculated accuracy of: ' + str(acc),lr)
+print('Calculated accuracy of: ' + str(acc), lr)
 
 
 fig = plt.figure(1)
@@ -97,8 +99,8 @@ plt.plot(history.history['val_acc'])
 plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
 plt.title('Model Accuracy')
-plt.legend(['train','test'],loc='lower right')
-#plt.show()
+plt.legend(['train', 'test'], loc='lower right')
+# plt.show()
 
 fig = plt.figure(2)
 plt.plot(history.history['loss'])
@@ -106,55 +108,55 @@ plt.plot(history.history['val_loss'])
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
 plt.title('Model Loss')
-plt.legend(['train','test'],loc='upper right')
-#plt.show()
+plt.legend(['train', 'test'], loc='upper right')
+# plt.show()
 
-#test_loss = model.evaluate(prepr.get_test_dataset(), test_output)
-#print('Evaluate-Test loss:', test_loss)
+# test_loss = model.evaluate(prepr.get_test_dataset(), test_output)
+# print('Evaluate-Test loss:', test_loss)
 #
-#pred_result = model.predict(prepr.get_test_dataset())
-#for i in range(len(pred_result)):
-#    pred_result[i] = 1 if pred_result[i] > PROBABILITY_MARGIN_SURVIVAL else 0
+# pred_result = model.predict(prepr.get_test_dataset())
+# for i in range(len(pred_result)):
+#     pred_result[i] = 1 if pred_result[i] > PROBABILITY_MARGIN_SURVIVAL else 0
 #
-#right = 0
-#for i in range(len(test_output)):
-#    if pred_result[i] == test_output[i]:
-#        right += 1
-#acc = right/len(test_output)
-#print('Calculated accuracy of: ' + str(acc))
+# right = 0
+# for i in range(len(test_output)):
+#     if pred_result[i] == test_output[i]:
+#         right += 1
+# acc = right/len(test_output)
+# print('Calculated accuracy of: ' + str(acc))
 
 #
-##optimizers = ['adam', 'rmsprop']
-##init_wt = ['glorot_uniform', 'normal', 'uniform']
-#epochs = [30, 60]
-#batches = [8, 16, 32]
-#early_stopping = [True]
-#solver = ['lbfgs', 'adam', 'sgd']
-#hidden_layers = [10, (3,3)]
-#parameters = {
-#    "solver": solver,
-#    "max_iter": epochs,
-#    "batch_size": batches,
-#    "hidden_layer_sizes": hidden_layers,
-#    "early_stopping": early_stopping}
+# #optimizers = ['adam', 'rmsprop']
+# #init_wt = ['glorot_uniform', 'normal', 'uniform']
+# epochs = [30, 60]
+# batches = [8, 16, 32]
+# early_stopping = [True]
+# solver = ['lbfgs', 'adam', 'sgd']
+# hidden_layers = [10, (3,3)]
+# parameters = {
+#     "solver": solver,
+#     "max_iter": epochs,
+#     "batch_size": batches,
+#     "hidden_layer_sizes": hidden_layers,
+#     "early_stopping": early_stopping}
 #
-#grid = GridSearchCV(estimator=MLPClassifier(),
+# grid = GridSearchCV(estimator=MLPClassifier(),
 #                    param_grid=parameters,
 #                    scoring='accuracy',
 #                    cv=10,
 #                    n_jobs=-1)
 #
-#grid_results = grid.fit(input_value, output)
-#best_accuracy = grid_results.best_score_
-#best_parameters = grid_results.best_params_
-#with open('./results','w') as fileh:
-#    fileh.write(grid_results.cv_results_)
-#print(grid_results.cv_results_)
-#means = grid_results.cv_results_['mean_test_score']
-#std = grid_results.cv_results_['std_test_score']
-#params = grid_results.cv_results_['params']
-#print(means)
-#print(std)
-#print(params)
-#print(best_accuracy)
-#print(best_parameters)
+# grid_results = grid.fit(input_value, output)
+# best_accuracy = grid_results.best_score_
+# best_parameters = grid_results.best_params_
+# with open('./results','w') as fileh:
+#     fileh.write(grid_results.cv_results_)
+# print(grid_results.cv_results_)
+# means = grid_results.cv_results_['mean_test_score']
+# std = grid_results.cv_results_['std_test_score']
+# params = grid_results.cv_results_['params']
+# print(means)
+# print(std)
+# print(params)
+# print(best_accuracy)
+# print(best_parameters)
