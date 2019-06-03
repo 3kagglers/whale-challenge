@@ -6,16 +6,12 @@ Created on Thu Feb 21 15:20:42 2019
 Project: Titanic Kaggle
 """
 
-import sys
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
 from keras.layers import Dense
 from keras.models import Sequential
 from keras.callbacks import EarlyStopping
-from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import GridSearchCV
-from keras.optimizers import Adam
 
 import preprocessor
 import featureAnalysis
@@ -46,7 +42,8 @@ input_value, output = prepr.get_train_datasets()
 n_cols = input_value.shape[1]
 
 
-def neural_network(l_rate):
+def neural_network():
+    """Generates a newral network and returns it"""
     model = Sequential()
     model.add(Dense(24, activation='relu',
                     kernel_initializer='glorot_uniform',
@@ -69,8 +66,7 @@ def neural_network(l_rate):
 early_stopping_monitor = EarlyStopping(patience=5)
 # Train model
 
-lr = 0.001
-net = neural_network(lr)
+net = neural_network()
 history = net.fit(input_value,
                   output,
                   validation_split=0.2,
@@ -90,7 +86,7 @@ for i in range(len(test_output)):
     if pred_result[i] == test_output[i]:
         right += 1
 acc = right/len(test_output)
-print('Calculated accuracy of: ' + str(acc), lr)
+print('Calculated accuracy of: ' + str(acc))
 
 
 fig = plt.figure(1)
