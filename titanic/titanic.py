@@ -14,7 +14,7 @@ from keras.models import Sequential
 from keras.callbacks import EarlyStopping
 
 import preprocessor
-import featureAnalysis
+import featureanalysis
 
 # Above this value, the survival flag will be true
 PROBABILITY_MARGIN_SURVIVAL = 0.5
@@ -26,7 +26,7 @@ df = pd.read_csv('train.csv')
 
 # perform feature analysis
 numerical_features = ["Survived", "SibSp", "Parch", "Age", "Fare"]
-feat_analysis = featureAnalysis.FeatureAnalysis()
+feat_analysis = featureanalysis.FeatureAnalysis()
 feat_analysis.get_correlation_numericalvalues(df, numerical_features)
 feat_analysis.analyse_categoricalvalues(df)
 

@@ -3,22 +3,7 @@ Feature analysis.
 """
 
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 import seaborn as sns
-
-
-from collections import Counter
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import StratifiedKFold
-from sklearn.model_selection import learning_curve
 
 
 class FeatureAnalysis:
@@ -140,7 +125,8 @@ class FeatureAnalysis:
         g = g.set_ylabels("Count")
         plt.show()
 
-    def explore_feature_output(self, dataframe, feature, output) -> None:
+    @staticmethod
+    def explore_feature_output(dataframe, feature, output) -> None:
         """
         Creates graph to explore the influence of one feature on the output or
         the correlation among two features.
