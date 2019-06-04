@@ -2,23 +2,9 @@
 Feature analysis.
 """
 
-import numpy as np
-import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from collections import Counter
-
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import learning_curve
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import StratifiedKFold
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 class FeatureAnalysis:
     """
@@ -55,7 +41,8 @@ class FeatureAnalysis:
             annot=True,
             fmt=".2f",
             cmap="coolwarm")
-        if self.show_plots: plt.show()
+        if self.show_plots:
+            plt.show()
 
     def distribution_plot_against_categorical(self, index_one, index_two):
         """
@@ -69,7 +56,8 @@ class FeatureAnalysis:
         # Explore Age vs Survived
         tmp = sns.FacetGrid(self.dataframe, col=index_one)
         tmp.map(sns.distplot, index_two)
-        if self.show_plots: plt.show()
+        if self.show_plots:
+            plt.show()
 
     def plot_against_true_false_var(self, index, tf_index):
         """
@@ -84,14 +72,14 @@ class FeatureAnalysis:
         """
         # Explore Age distibution
         tmp = sns.kdeplot(
-            self.dataframe[index][(
-                self.dataframe[tf_index] == 0)
+            self.dataframe[index][
+                (self.dataframe[tf_index] == 0)
                 & (self.dataframe[index].notnull())],
             color="Red",
             shade=True)
         tmp = sns.kdeplot(
-            self.dataframe[index][(
-                self.dataframe[tf_index] == 1)
+            self.dataframe[index][
+                (self.dataframe[tf_index] == 1)
                 & (self.dataframe[index].notnull())],
             ax=tmp,
             color="Blue",
@@ -99,7 +87,8 @@ class FeatureAnalysis:
         tmp.set_xlabel(index)
         tmp.set_ylabel("Frequency")
         tmp.legend(["Not " + tf_index, index])
-        if self.show_plots: plt.show()
+        if self.show_plots:
+            plt.show()
 
     def explore_distribution_plot(self, index):
         """
@@ -109,9 +98,10 @@ class FeatureAnalysis:
         tmp = sns.distplot(
             self.dataframe[index],
             color="m",
-            label="Skewness : %.2f"%(self.dataframe[index].skew()))
+            label="Skewness : %.2f" % (self.dataframe[index].skew()))
         tmp.legend(loc="best")
-        if self.show_plots: plt.show()
+        if self.show_plots:
+            plt.show()
 
     def categorical_plot_frequency(self, index_one, index_two):
         """
@@ -121,7 +111,8 @@ class FeatureAnalysis:
         """
         tmp = sns.barplot(x=index_one, y=index_two, data=self.dataframe)
         tmp.set_ylabel("Probability of " + index_two)
-        if self.show_plots: plt.show()
+        if self.show_plots:
+            plt.show()
 
     def categorical_plot_three_vars(self, index_one, index_two, index_three):
         """
@@ -140,7 +131,8 @@ class FeatureAnalysis:
             palette="muted")
         tmp.despine(left=True)
         tmp.set_ylabels("probability of " + index_two)
-        if self.show_plots: plt.show()
+        if self.show_plots:
+            plt.show()
 
     def categorical_plot_two_vars(self, index_one, index_two):
         """
@@ -157,7 +149,8 @@ class FeatureAnalysis:
             palette="muted")
         tmp.despine(left=True)
         tmp.set_ylabels("Count")
-        if self.show_plots: plt.show()
+        if self.show_plots:
+            plt.show()
 
     def explore_feature_output(self, feature, output) -> None:
         """
@@ -177,4 +170,5 @@ class FeatureAnalysis:
             palette="muted")
         tmp.despine(left=True)
         tmp.set_ylabels("Survival Probability")
-        if self.show_plots: plt.show()
+        if self.show_plots:
+            plt.show()

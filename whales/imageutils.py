@@ -34,7 +34,7 @@ def resize_image_fixed(path_to_image, new_path_to_image, size):
 
 if __name__ == '__main__':
 
-    IMAGE = './boop.png' # change here
+    IMAGE = './boop.png'    # change here
     TMP_IMG = 'resized_image.png'
 
     resize_image_scale(IMAGE, TMP_IMG, 10)

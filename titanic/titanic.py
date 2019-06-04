@@ -26,9 +26,8 @@ df = pd.read_csv('train.csv')
 
 # perform feature analysis
 numerical_features = ["Survived", "SibSp", "Parch", "Age", "Fare"]
-feat_analysis = featureanalysis.FeatureAnalysis()
-feat_analysis.get_correlation_numericalvalues(df, numerical_features)
-feat_analysis.analyse_categoricalvalues(df)
+feat_analysis = featureanalysis.FeatureAnalysis(df)
+feat_analysis.get_correlation_numerical_values(numerical_features)
 
 # removed cabin and name columns
 

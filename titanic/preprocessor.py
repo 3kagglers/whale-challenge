@@ -39,21 +39,22 @@ class Preprocessor:
     def map_to_divisions(
             data_array: List[float],
             number_divisions: int = None,
-            divisions: List[float] = None): # (...) -> np.array;
+            divisions: List[float] = None):     # (...) -> np.array;
         """
         Receives a list with data and will divide its elements into a given
         number of classes, e.g. an array with numbers from 1 to 100 with 10
         divisions will have 10 elements in class 1, 10 in class 2, and so on.
         If the divisions were given, they will be used instead.
-        Divisions are expected as list of values, with the highest value less or
-        equal to highest value of data array, each value representing the upper
-        limit of a class. With this, to achieve same result of previous example,
-        divisions [10, 20, 30, 40, ..., 100] should be given.
+        Divisions are expected as list of values, with the highest value less
+        or equal to highest value of data array, each value representing the
+        upper limit of a class. With this, to achieve same result of previous
+        example, divisions [10, 20, 30, 40, ..., 100] should be given.
 
         Returns list with classified values. Classes are integer.
 
-        Either one of number_divisions or divisions parameters must be given, or
-        AttributeError is risen. Same error is risen for both parameters given.
+        Either one of number_divisions or divisions parameters must be given,
+        or AttributeError is risen. Same error is risen for both parameters
+        given.
 
         :data_array: list[float]
         :number_divisions: int
@@ -69,9 +70,9 @@ class Preprocessor:
             raise AttributeError(
                 "Both parameters given when only one is expected.")
 
-        strategy = 'number' # We are using default divisions
+        strategy = 'number'     # We are using default divisions
         if divisions is not None:
-            strategy = 'list' # We are using given divisions
+            strategy = 'list'   # We are using given divisions
 
         input_array = np.array(data_array)
         array_max = np.amax(input_array)
@@ -84,10 +85,10 @@ class Preprocessor:
             for ind in range(len(divisions)):
                 divisions[ind] = (divisions[ind], ind+1)
         elif strategy == 'number':
-            divisions = [] #type: list[float]
+            divisions = []
             array_min = np.amin(input_array)
-            division_step = (array_max - array_min) / number_divisions #type: float
-            number_steps = 0 #type: float
+            division_step = (array_max - array_min) / number_divisions
+            number_steps = 0
             while number_steps <= number_divisions:
                 number_steps += 1
                 divisions.append((division_step*number_steps, number_steps))
@@ -180,7 +181,8 @@ class Preprocessor:
 
         # Sex converted to 0/1
         self.encoders['sex'] = LabelEncoder()
-        input_value[:, 1] = self.encoders['sex'].fit_transform(input_value[:, 1])
+        input_value[:, 1] = self.encoders['sex'].fit_transform(
+            input_value[:, 1])
 
         # Embarked converted to labels
         self.encoders['embarked'] = LabelEncoder()
@@ -196,7 +198,8 @@ class Preprocessor:
 
         # Normalization for 2 numeric features -> -2
         self.normalizer = MinMaxScaler(feature_range=(0, 1))
-        input_value[:, -2:] = self.normalizer.fit_transform(input_value[:, -2:])
+        input_value[:, -2:] = self.normalizer.fit_transform(
+            input_value[:, -2:])
 
         print("First line of end matrix:")
         print(input_value[0][:])
@@ -235,7 +238,8 @@ class Preprocessor:
         input_value[:, 1] = self.encoders['sex'].transform(input_value[:, 1])
 
         # Embarked converted to labels
-        input_value[:, 6] = self.encoders['embarked'].transform(input_value[:, 6])
+        input_value[:, 6] = self.encoders['embarked'].transform(
+            input_value[:, 6])
 
         # Encoding P Class, Sib, Parch and Embarked
         input_value = self.encoders['onehotencoder'].transform(
@@ -248,6 +252,7 @@ class Preprocessor:
         print(input_value[0][:])
 
         self.test_input_value = input_value
+
 
 if __name__ == '__main__':
     a = pd.DataFrame([1, 2, 3, 4, 5, 6, 7])

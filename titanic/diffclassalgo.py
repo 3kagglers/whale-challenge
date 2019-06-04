@@ -1,6 +1,6 @@
 """File to test different algorithms on the problem."""
 
-from warnings import simplefilter # Warning filter
+from warnings import simplefilter   # Warning filter
 
 import numpy as np
 import pandas as pd
@@ -31,7 +31,8 @@ n_cols = features.shape[1]
 
 # prepare models
 models = []
-models.append(('RF', RandomForestClassifier(n_estimators=100, random_state=10)))
+models.append(('RF', RandomForestClassifier(
+    n_estimators=100, random_state=10)))
 models.append(('LR', LogisticRegression(solver='lbfgs', random_state=10)))
 models.append(('KNN', KNeighborsClassifier()))
 models.append(('CART', DecisionTreeClassifier()))
@@ -61,8 +62,8 @@ plt.show()
 
 def fit_predict_analyse(classifier):
     """
-    Receives a classifier, calls fit method, predict, invokes a confusion matrix
-    and plots accuracy from it.
+    Receives a classifier, calls fit method, predict, invokes a confusion
+    matrix and plots accuracy from it.
     :clf: Any : Will have methods clf.fit(input,output) and
                 output = clf.predict(input) called.
     """
@@ -90,7 +91,7 @@ for param in params:
     clf = RandomForestClassifier(n_estimators=param, random_state=10)
     cm = fit_predict_analyse(clf)
     print(param, 'Accuracy : {:.2f}'.format(np.trace(cm) / sum(sum(cm))))
-#C=100
+# C=100
 
 print("KNC")
 params = [1, 5, 10, 20, 50, 100]
@@ -98,4 +99,4 @@ for param in params:
     clf = KNeighborsClassifier(n_neighbors=param)
     cm = fit_predict_analyse(clf)
     print(param, 'Accuracy : {:.2f}'.format(np.trace(cm) / sum(sum(cm))))
-#C=10
+# C =10
