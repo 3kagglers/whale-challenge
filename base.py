@@ -1,7 +1,9 @@
-import numpy as np
-import pandas as pd
+"""
+Docstring goes here.
+"""
 
-import preprocessor
+# import numpy as np
+# import pandas as pd
 
 # =========================================================================== #
 # loading and checking data
@@ -38,7 +40,7 @@ import preprocessor
 # Feature engineering
 # =========================================================================== #
 
-# Try and create new features from others, e.g. check whether two features
+# Try and create new features from others, e.g. check whether two features,
 # when multiplied, return some interesting pattern
 
 # =========================================================================== #

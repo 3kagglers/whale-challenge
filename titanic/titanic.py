@@ -6,19 +6,17 @@ Created on Thu Feb 21 15:20:42 2019
 Project: Titanic Kaggle
 """
 
-import sys
-import pandas as pd
+import csv
 import matplotlib.pyplot as plt
+import pandas as pd
 
 from keras.layers import Dense
+from keras.optimizers import Adam
 from keras.models import Sequential
 from keras.callbacks import EarlyStopping
-from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import GridSearchCV
-from keras.optimizers import Adam
 
 import preprocessor
-import featureAnalysis
+import featureanalysis
 
 # Above this value, the survival flag will be true
 PROBABILITY_MARGIN_SURVIVAL = 0.5
@@ -30,9 +28,8 @@ df = pd.read_csv('train.csv')
 
 # perform feature analysis
 numerical_features = ["Survived", "SibSp", "Parch", "Age", "Fare"]
-#feat_analysis = featureAnalysis.FeatureAnalysis()
-#feat_analysis.get_correlation_numericalvalues(df, numerical_features)
-#feat_analysis.analyse_categoricalvalues(df)
+feat_analysis = featureanalysis.FeatureAnalysis(df)
+feat_analysis.get_correlation_numerical_values(numerical_features)
 
 # removed cabin and name columns
 input_value, output = prepr.get_train_datasets()
@@ -40,7 +37,9 @@ input_value, output = prepr.get_train_datasets()
 # Get number of columns in training data
 n_cols = input_value.shape[1]
 
+
 def neural_network(l_rate):
+    """Generates neural network with given learning rate and returns it."""
     model = Sequential()
     model.add(Dense(256, activation='relu',
                     kernel_initializer='glorot_uniform',
@@ -61,9 +60,10 @@ def neural_network(l_rate):
 
 
 early_stopping_monitor = EarlyStopping(patience=50)
+
 # Train model
-lr = 0.0001
-net = neural_network(lr)
+learning_rate = 0.0001
+net = neural_network(learning_rate)
 history = net.fit(input_value,
                   output,
                   validation_split=0.15,
@@ -71,14 +71,30 @@ history = net.fit(input_value,
                   verbose=1,
                   callbacks=[early_stopping_monitor])
 
-print('Loss: %.3f'%(history.history['loss'][-1]))
-print('Accuracy: %.3f'%(history.history['acc'][-1]))
+# test_loss = net.evaluate(prepr.get_test_dataset(), test_output)
+# print('Evaluate-Test loss:', test_loss)
+#
+# pred_result = net.predict(prepr.get_test_dataset())
+#
+# for i in range(len(pred_result)):
+#     pred_result[i] = 1 if pred_result[i] > PROBABILITY_MARGIN_SURVIVAL else 0
+
+# right = 0
+# for i in range(len(test_output)):
+#     if pred_result[i] == test_output[i]:
+#         right += 1
+# acc = right/len(test_output)
+# print('Calculated accuracy of: ' + str(acc))
+
+print('Loss: %.3f' % (history.history['loss'][-1]))
+print('Accuracy: %.3f' % (history.history['acc'][-1]))
 print(len(history.history['loss']))
 
 # =============================================================================
 # Visualization
 # =============================================================================
-fig = plt.figure(1, figsize=(12,7))
+fig = plt.figure(1, figsize=(12, 7))
+# 1 row, 2 columns, index 1
 plt.subplot(121)
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
@@ -106,14 +122,12 @@ for i in range(len(pred_result)):
     pred_result[i] = 1 if pred_result[i] > PROBABILITY_MARGIN_SURVIVAL else 0
 
 # Generate file
-file_data=[]    
+file_data = []
 for index, value in enumerate(pred_result):
     file_data.append((index+891, value[0]))
 
-import csv
-with open('data_submission.csv', 'w+', newline='') as d:
-    writer = csv.DictWriter(d, fieldnames=["Passenger ID", "Survived"])
+with open('data_submission.csv', 'w+', newline='') as fileh:
+    writer = csv.DictWriter(fileh, fieldnames=["Passenger ID", "Survived"])
     writer.writeheader()
-    writer = csv.writer(d, quoting=csv.QUOTE_NONNUMERIC)   
+    writer = csv.writer(fileh, quoting=csv.QUOTE_NONNUMERIC)
     writer.writerows(file_data)
-    
