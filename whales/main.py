@@ -1,9 +1,7 @@
-"""
-Docstring goes here.
-"""
+"""Main file for whale project."""
 
-# import numpy as np
-# import pandas as pd
+import numpy as np
+import pandas as pd
 
 # =========================================================================== #
 # loading and checking data
@@ -24,44 +22,48 @@ Docstring goes here.
 # Feature analysis
 # =========================================================================== #
 
-# Verify correlation mong features and correlation between each feature and the
-# output, this tells whether a feature is important or not
+# Identify tail
 
-# Analyze numerical values
-# Analyze categorical values
+# Crop image down to ROI
+
+# Remove texts and unwanted features
+
+# Train classifier to tell good crops from bad ones
+
+# Get only tail
 
 # =========================================================================== #
 # Filling missing values
 # =========================================================================== #
 
-# Fill missing values with a relevant, thought-out value
+# Run classifier on images to make sure that we have a tail in all
 
 # =========================================================================== #
 # Feature engineering
 # =========================================================================== #
 
-# Try and create new features from others, e.g. check whether two features,
-# when multiplied, return some interesting pattern
+# Check brainstorming for whale data analysis card in documents list for ideas
 
 # =========================================================================== #
 # Changing feature representation
 # =========================================================================== #
 
-# Use one-hot-encoding/binary encoding to turn categorical features into
-# numeric features to be analyzed without pounding.
+# Apply filters and what not, extrapolation of feature engineering
+
+# Figure out a way for identifying new whales
 
 # =========================================================================== #
 # Modeling
 # =========================================================================== #
 
-# Define model(s), NN, DT, SVM,...
+# Define model(s), CNN, SOM,...
 # Train model(s)
-# Plot learning curve
-# Ckeck cross-validation
+# Plot training data
+# Ckeck training data available (cross-validation?)
 # Tune hyper-parameters, strategies for this are e.g. gridSearch or genetic alg
 
 # =========================================================================== #
 # Prediction
 # =========================================================================== #
 
-# Test it out.
+# Test it out
