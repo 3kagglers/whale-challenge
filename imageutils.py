@@ -50,10 +50,10 @@ from PIL import Image
 import imagehash
 
 import os
-path = 'D:/Git Repo/Kaggle/WhaleChallenge'
+path = '.'
 print(os.listdir(path))
 
-TRAIN_IMG_PATH = 'D:/Git Repo/Kaggle/WhaleChallenge/train'
+TRAIN_IMG_PATH = './train'
 
 def getImageMetaData(file_path):
     with Image.open(file_path) as img:
@@ -61,7 +61,7 @@ def getImageMetaData(file_path):
         return img.size, img.mode, img_hash
 
 def get_train_input():
-    train_input = pd.read_csv('D:/Git Repo/Kaggle/WhaleChallenge/train.csv')
+    train_input = pd.read_csv('./train.csv')
     
     m = train_input.Image.apply(lambda x: getImageMetaData(TRAIN_IMG_PATH + "/" + x))
     train_input["Hash"] = [str(i[2]) for i in m]
